@@ -1,0 +1,26 @@
+= Configure Tomcat manager
+
+== Add user
+
+In `/opt/tomcat/conf/tomcat-users.xml` add:
+```
+<role rolename="manager-script"/>
+<role rolename="manager-gui"/>
+<user username="manager" password="password" roles="manager-script,manager-gui"/>
+```
+
+== Change configuration
+
+In `/opt/tomcat/webapps/manager/META-INF/context.xml` comment lines in `<Context>` section:
+```
+<!-- <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+```
+
+== Restart Tomcat
+
+`systemctl restart tomcat`
+
+Sources:
+
+* https://tomcat.apache.org/tomcat-9.0-doc/manager-howto.html#Configuring_Manager_Application_Access
